@@ -8,7 +8,9 @@ function TinderPage(props) {
   useEffect(() => {
     async function getUsers() {
       try {
-        const response = await axios.get('/data/api/user');
+        const response = await axios.get('/data/api/user', {
+          params: { limit: 10 },
+        });
         const { data } = response.data;
         setUsers(data);
       } catch (error) {
@@ -17,7 +19,21 @@ function TinderPage(props) {
     }
     getUsers();
   }, []);
-  return <TinderCard users={users}></TinderCard>;
+  function getMoreUsers(page) {
+    async function getUsers() {
+      try {
+        const response = await axios.get('/data/api/user', {
+          params: { limit: 10, page: page + 1 || 1 },
+        });
+        const { data } = response.data;
+        setUsers(data);
+      } catch (error) {
+        console.log('fail to log data');
+      }
+    }
+    getUsers();
+  }
+  return <TinderCard users={users} getMoreUsers={getMoreUsers}></TinderCard>;
 }
 
 export default TinderPage;

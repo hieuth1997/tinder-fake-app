@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import TinderCard from 'react-tinder-card';
 import './tinderCard.scss';
 const alreadyRemoved = [];
-function TinderCardCustom({ users }) {
+function TinderCardCustom({ users, getMoreUsers }) {
   let charactersState = users;
   const [characters, setCharacters] = useState([]);
   const [lastDirection, setLastDirection] = useState();
+  const [page, setPage] = useState(1);
   useEffect(() => {
     setCharacters(users);
   }, [users]);
@@ -43,6 +44,8 @@ function TinderCardCustom({ users }) {
     }
     if (cardsLeft.length === 1) {
       console.log('OUT OF ITEM');
+      getMoreUsers(page + 1);
+      setPage(page + 1);
     }
   };
 

@@ -3,7 +3,7 @@ import setup from './helpers/setup';
 import setHeader from './helpers/setHeader';
 
 setup();
-const appId = '6046d0a851354b0b0bba8119';
+const appId = '60473d1d8bfcf8153ee897ca';
 setHeader(appId);
 function App() {
   return (
