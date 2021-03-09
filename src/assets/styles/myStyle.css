@@ -1,39 +1,150 @@
-:root {
-    --text-color: #333;
-    --white-color: #fff;
-    --black-color: #000;
-    --gray-color: #8d939a;
+#root {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  min-height: 100vh;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.822);
 }
-* {
-    box-sizing: inherit;
-}
-html {
-    font-size: 62.5%;
-    line-height: 1.6rem !important;
-    font-family: 'Roboto', sans-serif;
-    box-sizing: border-box;
-    color: var(--text-color);
-}
-/* px = diem anh thuc */
 
-/* base */
-a {
-    text-decoration: none !important;
+#root > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-ul {
-    list-style: none;
+.app-container {
+  background: linear-gradient(#e66465, #9198e5);
 }
-/* mobile and tablet */
-@media only screen and (max-width: 46.1875em) {
-}
-/* mobile < 740 px */
-@media only screen and (max-width: 64em) {
-}
-/* tablet >740px and < 1024px  */
-@media only screen and (min-width: 46.25em) and (max-width: 63.9375em) {
-}
-/* laptop > 1024px and < 768px
-@media only screen and (min-width:64em)
-{
 
-} */
+.app > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.row {
+  flex-direction: row !important;
+}
+
+.row > * {
+  margin: 5px;
+}
+
+h1 {
+  font-family: 'Damion', cursive;
+  color: #fff;
+  text-shadow: 0px 0px 60px 0px rgba(0, 0, 0, 0.3);
+}
+
+h2 {
+  color: #fff;
+}
+
+.swipe {
+  position: absolute;
+  width: 100%;
+  border-radius: 20px;
+  flex-grow: 1;
+}
+
+.cardContainer {
+  width: 100%;
+  border-radius: 20px;
+  max-width: 360px;
+  height: 450px;
+  background-color: #fff;
+  display: flex;
+  box-shadow: 0px 0px 80px 0px rgba(0, 0, 0, 0.3);
+  border-start-start-radius: 20px;
+  flex-direction: row;
+  width: 360px;
+}
+
+.card {
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+
+  background-color: #fff;
+  width: 100%;
+  height: 400px;
+  background-size: cover;
+  background-position: center;
+}
+
+.cardContent {
+  width: 100%;
+  height: 100%;
+}
+
+.swipe:last-of-type {
+}
+
+.card h3 {
+  position: absolute;
+  bottom: 0;
+  margin: 10px;
+  color: #fff;
+}
+
+.infoText {
+  width: 100%;
+  height: 28px;
+  justify-content: center;
+  display: flex;
+  color: #fff;
+  animation-name: popup;
+  animation-duration: 800ms;
+}
+
+.buttons {
+  display: flex;
+  width: 100vw;
+}
+
+.buttons button {
+  flex-shrink: 0;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  background-color: #9198e5;
+  transition: 200ms;
+  margin: 0 10px;
+  font-weight: bolder;
+  width: 160px;
+  box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.1);
+}
+
+.buttons button:hover {
+  transform: scale(1.05);
+}
+
+@keyframes popup {
+  0% {
+    transform: scale(1, 1);
+  }
+  10% {
+    transform: scale(1.1, 1.1);
+  }
+  30% {
+    transform: scale(0.9, 0.9);
+  }
+  50% {
+    transform: scale(1, 1);
+  }
+  57% {
+    transform: scale(1, 1);
+  }
+  64% {
+    transform: scale(1, 1);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
+}

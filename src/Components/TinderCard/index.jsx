@@ -1,40 +1,22 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import TinderCard from 'react-tinder-card';
+import './tinderCard.scss';
 
-TinderCardCustom.propTypes = {};
-const db = [
-  {
-    name: 'Richard Hendricks',
-    url: './img/richard.jpg',
-  },
-  {
-    name: 'Erlich Bachman',
-    url: './img/erlich.jpg',
-  },
-  {
-    name: 'Monica Hall',
-    url: './img/monica.jpg',
-  },
-  {
-    name: 'Jared Dunn',
-    url: './img/jared.jpg',
-  },
-  {
-    name: 'Dinesh Chugtai',
-    url: './img/dinesh.jpg',
-  },
-];
 const alreadyRemoved = [];
-let charactersState = db;
 
-function TinderCardCustom(props) {
-  const [characters, setCharacters] = useState(db);
+function TinderCardCustom({ users }) {
+  let charactersState = users;
+  console.log(charactersState);
+  const [characters, setCharacters] = useState([]);
   const [lastDirection, setLastDirection] = useState();
+  useEffect(() => {
+    setCharacters(users);
+  }, [users]);
 
   const childRefs = useMemo(
     () =>
-      Array(db.length)
+      Array(characters.length)
         .fill(0)
         .map((i) => React.createRef()),
     [],
@@ -56,16 +38,17 @@ function TinderCardCustom(props) {
 
   const swipe = (dir) => {
     const cardsLeft = characters.filter(
-      (person) => !alreadyRemoved.includes(person.name),
+      (person) => !alreadyRemoved.includes(person.id),
     );
     if (cardsLeft.length) {
-      const toBeRemoved = cardsLeft[cardsLeft.length - 1].name; // Find the card object to be removed
-      const index = db.map((person) => person.name).indexOf(toBeRemoved); // Find the index of which to make the reference to
+      const toBeRemoved = cardsLeft[cardsLeft.length - 1].id; // Find the card object to be removed
+      const index = users.map((person) => person.id).indexOf(toBeRemoved); // Find the index of which to make the reference to
       alreadyRemoved.push(toBeRemoved); // Make sure the next card gets removed next time if this card do not have time to exit the screen
       childRefs[index].current.swipe(dir); // Swipe the card!
     }
   };
 
+  console.log(characters);
   return (
     <div>
       <link
@@ -76,38 +59,38 @@ function TinderCardCustom(props) {
         href="https://fonts.googleapis.com/css?family=Alatsi&display=swap"
         rel="stylesheet"
       />
-      <h1>React Tinder Card</h1>
-      <div className="cardContainer">
-        {characters.map((character, index) => (
-          <TinderCard
-            ref={childRefs[index]}
-            className="swipe"
-            key={character.name}
-            onSwipe={(dir) => swiped(dir, character.name)}
-            onCardLeftScreen={() => outOfFrame(character.name)}
-          >
-            <div
-              style={{ backgroundImage: 'url(' + character.url + ')' }}
-              className="card"
+      <div className="container">
+        <div className="cardContainer">
+          {characters.map((character, index) => (
+            <TinderCard
+              ref={childRefs[index]}
+              className="swipe"
+              key={character.id}
+              onSwipe={(dir) => swiped(dir, character.id)}
+              onCardLeftScreen={() => outOfFrame(character.id)}
             >
-              <h3>{character.name}</h3>
-            </div>
-          </TinderCard>
-        ))}
+              <div className="card">
+                <img
+                  src={character.picture}
+                  alt="profilePicture"
+                  className="card-image"
+                />
+                <div className="overlay">
+                  <div className="text-box">
+                    <h4 className="name">{character.firstName}</h4>
+                  </div>
+                </div>
+              </div>
+            </TinderCard>
+          ))}
+        </div>
+        <div className="button-container">
+          <div className="buttons">
+            <button onClick={() => swipe('left')}>Dislike</button>
+            <button onClick={() => swipe('right')}>Like</button>
+          </div>
+        </div>
       </div>
-      <div className="buttons">
-        <button onClick={() => swipe('left')}>Swipe left!</button>
-        <button onClick={() => swipe('right')}>Swipe right!</button>
-      </div>
-      {lastDirection ? (
-        <h2 key={lastDirection} className="infoText">
-          You swiped {lastDirection}
-        </h2>
-      ) : (
-        <h2 className="infoText">
-          Swipe a card or press a button to get started!
-        </h2>
-      )}
     </div>
   );
 }
