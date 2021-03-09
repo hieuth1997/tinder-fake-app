@@ -1,0 +1,39 @@
+:root {
+    --text-color: #333;
+    --white-color: #fff;
+    --black-color: #000;
+    --gray-color: #8d939a;
+}
+* {
+    box-sizing: inherit;
+}
+html {
+    font-size: 62.5%;
+    line-height: 1.6rem !important;
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+    color: var(--text-color);
+}
+/* px = diem anh thuc */
+
+/* base */
+a {
+    text-decoration: none !important;
+}
+ul {
+    list-style: none;
+}
+/* mobile and tablet */
+@media only screen and (max-width: 46.1875em) {
+}
+/* mobile < 740 px */
+@media only screen and (max-width: 64em) {
+}
+/* tablet >740px and < 1024px  */
+@media only screen and (min-width: 46.25em) and (max-width: 63.9375em) {
+}
+/* laptop > 1024px and < 768px
+@media only screen and (min-width:64em)
+{
+
+} */
